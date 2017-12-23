@@ -3,7 +3,7 @@
 ;; environments.
 
 (use-modules (gnu) (gnu system nss))
-(use-service-modules desktop xorg)
+(use-service-modules cups desktop xorg)
 (use-package-modules bootloaders certs linux pulseaudio suckless wm xorg)
 
 (define my-xorg-conf
@@ -16,7 +16,7 @@
     Option \"AccelSpeed\" \"0.7\"
 EndSection")))
 
-(define %my-services
+(define %my-desktop-services
   (modify-services %desktop-services
     (slim-service-type config =>
                        (slim-configuration
@@ -59,9 +59,12 @@ EndSection")))
                    nss-certs
                    %base-packages))
 
-  ;; Use the "desktop" services, which include the X11
-  ;; log-in service, networking with Wicd, and more.
-  (services %my-services)
+  ;; Use the custom desktop services defined above, along with the CUPS service
+  ;; with web interface enabled.
+  (services (cons* (service cups-service-type
+                            (cups-configuration
+                             (web-interface? #t)))
+                   %my-desktop-services))
 
   (setuid-programs (cons* #~(string-append #$light "/bin/light")
                           %setuid-programs))

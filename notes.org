@@ -1,0 +1,4 @@
+* Things to think about doing
+** TODO It looks like the ~emacs-ggtags~ package doesn't depend on ~global~, while it should
+** TODO Submit ~i3blocks~ to the main package list
+** TODO Think about adding ~cups-pdf~ somehow

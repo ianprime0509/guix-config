@@ -1,0 +1,2 @@
+This is my local Guix configuration, which includes my ~config.scm~ (for
+operating system configuration) as well as any local packages I might have.
